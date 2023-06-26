@@ -92,39 +92,39 @@ There are several advantages of Database Replication
     ** Please note that each server makes the read/write request to the database (as opposed to an overarching web server making the request on behalf). I have just not represented that with the arrows to keep the drawing neat
     
     ---
+ 
+ ## Caching - improving load & response time
     
-    ## Caching - improving load & response time
+ A **cache is a temporary storage area** that saves data **in-memory**. 
     
-    A **cache is a temporary storage area** that saves data **in-memory**. 
-    
-    Caching is an important tool for us to improve load and response time. Instead of trying to make requests to the database and awaiting the response, you can instead store the result of a request in a cache. This means that the next time you make a request, the application/server will look at the cache first to see if the information is there and it’ll return it. Subsequent requests will be much faster because accessing cache is super quick since it’s **in-memory**. 
+ Caching is an important tool for us to improve load and response time. Instead of trying to make requests to the database and awaiting the response, you can instead store the result of a request in a cache. This means that the next time you make a request, the application/server will look at the cache first to see if the information is there and it’ll return it. Subsequent requests will be much faster because accessing cache is super quick since it’s **in-memory**. 
     
 <img src="./assets/5.Caching.png" alt="READ" width="800">
     
-    This strategy is called **read through cache**
+This strategy is called **read through cache**
     
-    There are many considerations you should have when thinking about using caching
+There are many considerations you should have when thinking about using caching
     
-    1. **Nature of accessing data** - you should cache data when it is **read frequently but updated rarely**. If you need to update the data frequently, then it’s likely that the data stored in cache will be out-of-date
-    2. **Expiration date** - you need to have an agreed upon expiration date that fits your use case. If the expiration date is too late, then you will have a very large cache and incur the costs that are associated with that. If it’s too early, then you’ll end up having to read from the DB a lot
-    3. **Consistency** - It’s hard to keep cache and DB data up to date and synced. Sometimes cached data will not reflect changes made in the DB
-    4. **Mitigating Failures** - Caching, like databases, are susceptible to a single point of failure problem. You should provision multiple caches or increase the memory of the cache to ensure you have buffer space and breathing room 
-    5. **Eviction policy** - once your cache has reached its maximum capacity AND if you have not set an eviction policy, there’s a good chance that you’ll delete data in the cache by writing over it. Thus, you’ll need a good eviction policy to clear the cache of old data. For example, **last recently used** is a popular technique. Other technique include **least frequently used** and **First-in-First-out** 
+1. **Nature of accessing data** - you should cache data when it is **read frequently but updated rarely**. If you need to update the data frequently, then it’s likely that the data stored in cache will be out-of-date
+2. **Expiration date** - you need to have an agreed upon expiration date that fits your use case. If the expiration date is too late, then you will have a very large cache and incur the costs that are associated with that. If it’s too early, then you’ll end up having to read from the DB a lot
+3. **Consistency** - It’s hard to keep cache and DB data up to date and synced. Sometimes cached data will not reflect changes made in the DB
+4. **Mitigating Failures** - Caching, like databases, are susceptible to a single point of failure problem. You should provision multiple caches or increase the memory of the cache to ensure you have buffer space and breathing room 
+5. **Eviction policy** - once your cache has reached its maximum capacity AND if you have not set an eviction policy, there’s a good chance that you’ll delete data in the cache by writing over it. Thus, you’ll need a good eviction policy to clear the cache of old data. For example, **last recently used** is a popular technique. Other technique include **least frequently used** and **First-in-First-out** 
     
     ---
     
-    ## Content Delivery Network
+## Content Delivery Network
     
     CDN is a network of geographically dispersed servers to deliver static content. Static content includes HTML, CSS, JavaScript, and media files (e.g. Images, Videos). 
     
 <img src="./assets/6.CDN.png" alt="READ" width="800">
     
-    There are several considerations you should keep in mind if you would like to use a CDN 
+There are several considerations you should keep in mind if you would like to use a CDN 
     
-    1. **Costs** - CDN services are provided by 3rd party providers. It’s important to remember how you’re using it so that you don’t incur extravagant costs 
-    2. **Cache** - Managing your cache is crucial as if you keep things for too long you might incur higher costs 
-    3.**Point of Failure** - similar to DBs and Caches, you should keep in mind that CDNs are susceptible to being a single point of failure. A solution is to make sure that the client is still able to retrieve files from the origin/server IF the CDN is down 
-    4. **Invalidating files** - sometimes what you store in your CDN might be out of date and you need a way to invalidate and refresh the files. 3rd party providers typically provide an API to manage your cache but you can also use versioning of your files 
+1. **Costs** - CDN services are provided by 3rd party providers. It’s important to remember how you’re using it so that you don’t incur extravagant costs 
+2. **Cache** - Managing your cache is crucial as if you keep things for too long you might incur higher costs 
+3.**Point of Failure** - similar to DBs and Caches, you should keep in mind that CDNs are susceptible to being a single point of failure. A solution is to make sure that the client is still able to retrieve files from the origin/server IF the CDN is down 
+4. **Invalidating files** - sometimes what you store in your CDN might be out of date and you need a way to invalidate and refresh the files. 3rd party providers typically provide an API to manage your cache but you can also use versioning of your files 
         
 <img src="./assets/7.WithCaching.png" alt="READ" width="800">
 
@@ -140,7 +140,7 @@ The issue is that if you **coupled the users with a server**, you get a system t
 
 On the one hand, you could use**sticky sessions** with load balancers to ensure the User gets routed to the right Server. However, this adds to overhead and increases complexity. For example, it’ll be hard to add or remove servers or handle server failures.
 
-The solution is to have a **\*\***stateless architecture**\*\*** - stateless web architecture involves HTTP reqs being sent to any web server which fetches a shared state in the database. You could use a \***\*\*\*\*\***NoSql\***\*\*\*\*\*** **\*\***DB**\*\*** to store data.
+The solution is to have a **stateless architecture** - stateless web architecture involves HTTP reqs being sent to any web server which fetches a shared state in the database. You could use a **NoSql** **DB** to store data.
 
 <img src="./assets/9.NoSQLDB.png" alt="READ" width="800">
 
