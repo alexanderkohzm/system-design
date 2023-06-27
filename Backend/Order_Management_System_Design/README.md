@@ -148,17 +148,17 @@ This section covers how some data models and states for events will look like. A
 
 ```tsx
 export enum OrderStatus = {
-	OrderReceived = "order_received"
-	OrderPaid = "order_paid"
-	OrderInTransit = "order_inTransit"
-	OrderCompleted = "order_completed"
+  OrderReceived = "order_received"
+  OrderPaid = "order_paid"
+  OrderInTransit = "order_inTransit"
+  OrderCompleted = "order_completed"
 }
 
 export type DestinationType = {
-	country: string;
-	postalCode: string
-	address: string;
-	phoneNumber: string;
+  country: string;
+  postalCode: string
+  address: string;
+  phoneNumber: string;
 }
 
 export interface IOrder {
