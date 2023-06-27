@@ -54,8 +54,8 @@ Non-functional requirements covers optimisation, handling edge cases, and improv
 
 1. **Load Management** - e-commerce websites will see a spike in traffic and orders during sales season (e.g. Black Friday, 11.11, Christmas). OMS’ system design will need to take this into account and be able to rapidly scale up and scale down servers depending on load
    1. **Asynchronous handling** - we will need to use event-driven architecture so that the services can work asynchronously. This will decouple receiving, creating, and completing orders (i.e. we should be able to receive orders continuously even if creating or completing orders takes time). This brings us to the problem of
-   2. **Horizontal and Vertical Scaling** - we’ll need horizontal scaling (e.g. sharding, replicas) and vertical scaling especially on Black Friday/11.11 for the **Write (Master) Database**
-   3. **Data consistency** - asynchronous handling of events + database sharding/replicas means that we’ll need a way to ensure data integrity so customers don’t order items that are Out of Stock (OOS)
+   2. **Data consistency** - asynchronous handling of events + database sharding/replicas means that we’ll need a way to ensure data integrity so customers don’t order items that are Out of Stock (OOS)
+   3. **Horizontal and Vertical Scaling** - we’ll need horizontal scaling (e.g. sharding, replicas) and vertical scaling especially on Black Friday/11.11 for the **Write (Master) Database**
 2. **Geography** - if the application provides service across the world, the application should have multiple data centres to cater to customers that fall into their respective geographic bucket
 3. **FailOver** - there should be multiple servers, caches, and databases to ensure that if one server fails, the traffic can be routed to the next best available server.
 4. **Internal vs. External facing** - this OMS system might have to differentiate providing services to internal and external users. This might affect the API design (e.g. Parameters passed into methods)
