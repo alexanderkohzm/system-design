@@ -9,6 +9,8 @@
     - [Functional Requirement <a name="user-content-FunctionalRequirement"></a>](#functional-requirement-)
     - [Non-Functional Requirements <a name="user-content-Non-FunctionalRequirement"></a>](#non-functional-requirements-)
   - [Architecture <a name="user-content-Architecture"></a>](#architecture-)
+    - [Architecture Diagrams <a name="user-content-ArchitectureDiagrams"></a>](#architecture-diagrams-)
+    - [Mermaid Sequence Diagram <a name="user-content-MermaidSequenceDiagram"></a>](#mermaid-sequence-diagram-)
     - [Load Balancing <a name="user-content-LoadBalancing"></a>](#load-balancing-)
     - [Database <a name="user-content-Database"></a>](#database-)
     - [Event Queue <a name="user-content-EventQueue"></a>](#event-queue-)
@@ -65,9 +67,13 @@ Non-functional requirements covers optimisation, handling edge cases, and improv
 
 ## Architecture <a name="Architecture">
 
+### Architecture Images <a name="ArchitectureDiagrams">
+
 <img src="./assets/1.Architecture.png" alt="READ" width="800">
 
 <img src="./assets/2.DB-Master-Slave.png" alt="READ" width="800">
+
+### Mermaid Sequence Diagram <a name="MermaidSequenceDiagram">
 
 ```mermaid
 sequenceDiagram
@@ -156,25 +162,25 @@ export type DestinationType = {
 }
 
 export interface IOrder {
-	id: string; // UUID
-	user: Types.ObjectId // user who ordered. Foreign Key in SQL DB
+  id: string; // UUID
+  user: Types.ObjectId // user who ordered. Foreign Key in SQL DB
   items: Array<IItem>
-	status: string // OrderStatusType
-	currency: string;
-	basketSize: number
-	destination: Object // DestinationType
-	paymentInformation: Object // IPaymentInformation
+  status: string // OrderStatusType
+  currency: string;
+  basketSize: number
+  destination: Object // DestinationType
+  paymentInformation: Object // IPaymentInformation
   promotionCode?: Array<string> | null; // multiple promotion code can be applied
-	source: string // App, Web
-	notes?: string
-	deliveryProvider?: string | null // delivery provider service (e.g. NinjaVan)
+  source: string // App, Web
+  notes?: string
+  deliveryProvider?: string | null // delivery provider service (e.g. NinjaVan)
   deliveryInstructions?: string | null
   numberOfDeliveryAttempts?: number | null // # delivery attempts
-	createdBy: string
-	updatedBy: Array<string> // audit trail. Can be edited by user OR customer support
-	changeHistory: Array<string> | null
-	createdAt: Date;
-	updatedAt: Date;
+  createdBy: string
+  updatedBy: Array<string> // audit trail. Can be edited by user OR customer support
+  changeHistory: Array<string> | null
+  createdAt: Date;
+  updatedAt: Date;
 }
 ```
 
