@@ -11,9 +11,19 @@ Your task is to design a **scalable** and **robust** architecture for the OMS. F
 # Response
 
 ## Table of Contents
-1. [Requirement Analysis](#FunctionalRequirement)
+- [Requirement Analysis](#RequirementAnalysis)
+  - [Functional Requirement](#FunctionalRequirement)
+  - [Non-Functional Requirement](#Non-FunctionalRequirement)
+- [Architecture](#Architecture)
+  - [Load Balancing](#LoadBalancing)
+  - [Database](#Database)
+  - [Event Queue](#EventQueue)
+  - [Cache](#Cache)
+  - [Monitoring, Logging, CI/CD](#MonitoringLoggingCICD)
+- [Data Models](#DataModels)
+- [Interfaces (API)](#Interfaces)
 
-## Requirement Analysis
+## Requirement Analysis <a name="RequirementAnalysis">
 
 ### Functional Requirement <a name="FunctionalRequirement">
 
@@ -34,7 +44,7 @@ It might also make sense to separate the order management service into `OrderMan
    3. Emit event to trigger item to be delivered
 5. OMS will listen to updates from (`IDeliveryService`). Upon successful delivery, OMS will move the order’s status to `Order_Completed`
 
-### Non-Functional Requirements
+### Non-Functional Requirements <a name="Non-FunctionalRequirement">
 
 Non-functional requirements covers optimisation, handling edge cases, and improving the functionality of the OMS service. In the prompt, the key things to keep in mind are **scalability** and **robustness**. This includes:
 
@@ -49,20 +59,20 @@ Non-functional requirements covers optimisation, handling edge cases, and improv
 
 ---
 
-## Architecture
+## Architecture <a name="Architecture">
 
 <img src="./assets/1.Architecture.png" alt="READ" width="800">
 
 <img src="./assets/2.DB-Master-Slave.png" alt="READ" width="800">
 
-### Load Balancing
+### Load Balancing <a name="LoadBalancing">
 
 The load balancer performs two functions.
 
 1. **Geographic Routing** - it ensures users get routed to the right Data Centre depending on their geographic region. For example, an Australian User’s request will be routed to the Oceania Data Centre.
 2. **Server Usage Routing** - it will route a user’s request to the appropriate server depending on the server’s load. Let’s say it’s Black Friday in Singapore. Server 1 might be at 75% capacity while Server 2 might only be at 45% capacity. The load balancer will route traffic from Server 1 to Server 2
 
-### Database
+### Database <a name="Database">
 
 We can use two strategies from horizontal scaling to try to optimise database performance. During sales season, we want our database to be fault tolerant and have high throughput in order for us to be able to accept the maximum amount of orders (i.e. no orders should be cancelled or carts left at checkout because users can’t make an order)
 
@@ -77,17 +87,17 @@ We generally want horizontal scaling because it increases our
 
 With that being said, vertical scaling might be relevant for complex querying and calculations. For example, querying from business analysts might require joining several tables and performing aggregations and calculations. Such calculations include calculating Average Basket Size (ABS) and the performance of promotion codes to increase total orders. But this is a more predictable requirement and an SLA can be planned ahead of time between the engineering team and business analyst teams.
 
-### Event Queue
+### Event Queue <a name="EventQueue">
 
 Asynchronous processing of orders is a good strategy to employ as it allows us to accept orders while taking time later to process the orders.
 
-### Cache
+### Cache <a name="Cache">
 
 Caching is useful to help take some load off the database for read operations.
 
 For example, business analysts might have very common and repeated queries that should be cached so another query and calculation would not need to be made (e.g. Total Orders for Year 2022)
 
-### Monitoring, Logging, CI/CD
+### Monitoring, Logging, CI/CD <a name="MonitoringLoggingCICD">
 
 Monitoring will help the development team be pro-active in managing the health of the different servers. This is crucial as developers should increase/decrease load prior to servers reaching a critical state
 
@@ -97,7 +107,7 @@ CI/CD will quicken developer release cycles and help to roll-back changes if the
 
 ---
 
-## Data Models
+## Data Models <a name="DataModels">
 
 This section covers how some data models and states for events will look like. All code is written in TypeScript.
 
@@ -140,7 +150,7 @@ export interface IOrder {
 
 ---
 
-## Interfaces (API)
+## Interfaces (API) <a name="Interfaces">
 
 This section covers the contracts that are shared between the `IOrderService`, `IPaymentService`, `IInventoryService`, `IDeliveryService`
 
