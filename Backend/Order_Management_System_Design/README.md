@@ -69,6 +69,31 @@ Non-functional requirements covers optimisation, handling edge cases, and improv
 
 <img src="./assets/2.DB-Master-Slave.png" alt="READ" width="800">
 
+```mermaid
+sequenceDiagram
+    Client (Web/Mobile)->>OrderManagementService: Order placed
+    OrderManagementService->>OrderManagementService: createOrder() <br> order status: order_received
+    OrderManagementService->>Client (Web/Mobile): Order Successfully <br>Placed
+    OrderManagementService->>InventoryService: Reserve Item <br> (i.e place lock on item(s))
+    OrderManagementService->>PaymentService: Fetch payment status
+    PaymentService->>PaymentService: Wait for response from <br> Payment provider (e.g. Visa WebHook)
+    PaymentService->>OrderManagementService: Return Payment Status
+    alt Payment Cancelled or Failed
+    OrderManagementService->>InventoryService: Request to unlock item(s)
+    OrderManagementService->> Client (Web/Mobile): Order failed
+    Note right of Client (Web/Mobile): Might need another service <br> e.g. EmailService to <br> notify client
+    end
+    alt Payment Successful
+    OrderManagementService->>InventoryService: Decrement Item Count
+    OrderManagementService->>OrderManagementService: processOrder() <br> order status: order_paid
+    OrderManagementService->>DeliveryService: Request for Shipment/Delivery
+    DeliveryService->>DeliveryService: createDelivery() <br> Wait for response from <br> Delivery partner <br> e.g. NinjaVan Webhook
+    DeliveryService->>OrderManagementService: Successful Delivery
+    OrderManagementService->>Client (Web/Mobile): Order Successfully Delivered
+    Note right of Client (Web/Mobile): Might need another service <br> e.g. EmailService to <br> notify client
+    end
+```
+
 ### Load Balancing <a name="LoadBalancing">
 
 The load balancer performs two functions.
@@ -144,6 +169,7 @@ export interface IOrder {
 	notes?: string
 	deliveryProvider?: string | null // delivery provider service (e.g. NinjaVan)
   deliveryInstructions?: string | null
+  numberOfDeliveryAttempts?: number | null // # delivery attempts
 	createdBy: string
 	updatedBy: Array<string> // audit trail. Can be edited by user OR customer support
 	changeHistory: Array<string> | null
