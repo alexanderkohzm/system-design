@@ -67,7 +67,7 @@ Non-functional requirements covers optimisation, handling edge cases, and improv
 
 ## Architecture <a name="Architecture">
 
-### Architecture Images <a name="ArchitectureDiagrams">
+### Architecture Diagrams <a name="ArchitectureDiagrams">
 
 <img src="./assets/1.Architecture.png" alt="READ" width="800">
 
