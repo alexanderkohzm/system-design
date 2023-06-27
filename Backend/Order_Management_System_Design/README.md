@@ -1,20 +1,10 @@
 # Order Management System
 
-# Prompt:
+# Table of Contents
 
-Order Management Systems (OMS) are a critical component of an e-commerce platform. It’s responsible for handling and processing customer orders efficiently.
-
-The OMS should be able to handle a large number of incoming orders, process them accurately, and provide real-time order status updates to customers. It should also be able to integrate with other systems such as inventory management, payment gateways, and shipping providers amongst others.
-
-Your task is to design a **scalable** and **robust** architecture for the OMS. Focus on the high-level components, their interactions, and the data flow between them. Consider factors such as performance, availability, fault tolerance, and scalability.
-
-# Response
-
-## Table of Contents
-
+- [Table of Contents](#table-of-contents)
 - [Prompt](#prompt)
 - [Response](#response)
-  - [Table of Contents](#table-of-contents)
   - [Requirement Analysis <a name="user-content-RequirementAnalysis"></a>](#requirement-analysis-)
     - [Functional Requirement <a name="user-content-FunctionalRequirement"></a>](#functional-requirement-)
     - [Non-Functional Requirements <a name="user-content-Non-FunctionalRequirement"></a>](#non-functional-requirements-)
@@ -26,6 +16,16 @@ Your task is to design a **scalable** and **robust** architecture for the OMS. F
     - [Monitoring, Logging, CI/CD <a name="user-content-MonitoringLoggingCICD"></a>](#monitoring-logging-cicd-)
   - [Data Models <a name="user-content-DataModels"></a>](#data-models-)
   - [Interfaces (API) <a name="user-content-Interfaces"></a>](#interfaces-api-)
+
+# Prompt
+
+Order Management Systems (OMS) are a critical component of an e-commerce platform. It’s responsible for handling and processing customer orders efficiently.
+
+The OMS should be able to handle a large number of incoming orders, process them accurately, and provide real-time order status updates to customers. It should also be able to integrate with other systems such as inventory management, payment gateways, and shipping providers amongst others.
+
+Your task is to design a **scalable** and **robust** architecture for the OMS. Focus on the high-level components, their interactions, and the data flow between them. Consider factors such as performance, availability, fault tolerance, and scalability.
+
+# Response
 
 ## Requirement Analysis <a name="RequirementAnalysis">
 
