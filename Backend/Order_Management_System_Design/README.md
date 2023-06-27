@@ -12,8 +12,7 @@ Your task is to design a **scalable** and **robust** architecture for the OMS. F
 
 ## Table of Contents
 
-- [Order Management System](#order-management-system)
-- [Prompt:](#prompt)
+- [Prompt](#prompt)
 - [Response](#response)
   - [Table of Contents](#table-of-contents)
   - [Requirement Analysis <a name="user-content-RequirementAnalysis"></a>](#requirement-analysis-)
